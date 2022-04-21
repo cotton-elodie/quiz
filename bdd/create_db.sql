@@ -1,7 +1,6 @@
 BEGIN;
 
---setting up the structure
-DROP TABLE 
+DROP TABLE IF EXISTS "question","answer";
 
 CREATE TABLE "question" (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -13,7 +12,6 @@ CREATE TABLE "answer" (
     "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "name" TEXT NOT NULL,
     "questionId" INT,
-
 );
 
 

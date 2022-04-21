@@ -1,0 +1,5 @@
+### page d'accueil du site (doit renvoyer 6 itinéraires "random")
+GET http://localhost:3000
+
+### affiche une question
+GET http://localhost:3000/question/1
