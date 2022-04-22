@@ -16,13 +16,26 @@ const questionMapper = {
 
     return result.rows[0];
   },
-// permet d'afficher la liste des réponses de la question
+
+  // permet d'afficher la liste des réponses de la question
   async loadQuestionAnswers(id) {
     const questionId = Number(id);
 
     const result = await database.query(
       `SELECT * FROM "answer" 
           WHERE "questionId" = ${questionId}`
+    );
+
+    if (result.rowCount === 0) {
+      return null;
+    }
+
+    return result.rows;
+  },
+  // Permet de récupérer l'id des question
+  async findAll() {
+    const result = await database.query(
+      `SELECT "id" FROM "question"`
     );
 
     if (result.rowCount === 0) {

@@ -12,6 +12,14 @@ const questionController = {
 
     return res.json({ question: question, answers: answers }).status(200);
   },
+
+
+  async findAll(req, res) {
+    const questionsId = await questionMapper.findAll();
+
+
+    return res.json( questionsId).status(200);
+  },
 };
 
 module.exports = questionController;
