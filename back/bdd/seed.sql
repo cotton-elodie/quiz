@@ -7,7 +7,7 @@ VALUES
 ('Que doit-on écrire en CSS pour appliquer un style aux balises de titre de niveau 2 et 3 ?', 12),
 ('Lequel de ces alignements fait prendre au texte toute la largeur disponible ?', 16),
 ('Laquelle de ces couleurs correspond à du blanc ?', 19),
-('Laquelle de ces balises indique un pied de page ?', 20),
+('Laquelle de ces balises indique un pied de page ?', 21),
 ('Laquelle de ces balises représente une ligne dans un tableau ?', 21),
 ('Quelle est la méthode d''envoi de formulaire la plus recommandée qui permet d''envoyer le plus de données ?', 24),
 ('L''adresse complète et le numéro de téléphone des sociétés et organisations', 28),
