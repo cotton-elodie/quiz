@@ -15,10 +15,7 @@ initializeIcons();
 
 function App() {
   const [questions, setQuestions] = useState([]);
-  const [score, setScore]= useState(0)
   const [isLoading, setIsloading] = useState(true);
-  const [gameScore, setGameScore]=useState(0);
-  const [maxScore, setMaxScore]= useState(0)
 
   useEffect(() => {
     async function fetchData() {

@@ -6,12 +6,12 @@ import {
   ChoiceGroup,
 } from "@fluentui/react";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // const Question = ({ questionsId, index,score,maxScore })
-const Question = (props) => {
+const Question = ({questionsId, index}) => {
   const [question, setQuestion] = useState([]);
   const [options, setOptions] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(props.index);
+  const [currentIndex, setCurrentIndex] = useState(index);
   const [isLoading, setIsloading] = useState(true);
   const [score, setScore] = useState(0);
   const [userResponse, setUserResponse] = useState(null);
@@ -23,7 +23,7 @@ const Question = (props) => {
     async function fetchData() {
       setIsloading(true);
       const response = await axios.get(
-        `http://localhost:3000/question/${props.questionsId[currentIndex].id}`
+        `http://localhost:3000/question/${questionsId[currentIndex].id}`
       );
 
       const options: IChoiceGroupOption[] = response.data.answers.map(
@@ -39,9 +39,9 @@ const Question = (props) => {
   }, [currentIndex]);
 
   const onClick = () => {
-     if (currentIndex === props.questionsId.length - 1) {
+     if (currentIndex === questionsId.length - 1) {
       // on arrive sur la page résultat
-      navigate("/score", {state : {score:score, maxScore:props.questionsId.length}});
+      navigate("/score", {state : {score:score, maxScore:questionsId.length}});
      
     } else {
       setIsCorrected(false);
