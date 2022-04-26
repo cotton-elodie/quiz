@@ -3,6 +3,8 @@ import Home from "../Home/Home";
 import Question from "../Question/Question";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Result from "../Result/Result";
+
 
 import "../../styles/reset.css";
 import "../App/App.css";
@@ -13,7 +15,10 @@ initializeIcons();
 
 function App() {
   const [questions, setQuestions] = useState([]);
+  const [score, setScore]= useState(0)
   const [isLoading, setIsloading] = useState(true);
+  const [gameScore, setGameScore]=useState(0);
+  const [maxScore, setMaxScore]= useState(0)
 
   useEffect(() => {
     async function fetchData() {
@@ -32,6 +37,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/questions" element={<Question questionsId={questions} index={0} />} />
+          <Route path="/score" element={<Result/>}/>
         </Routes>
       )}
     </>

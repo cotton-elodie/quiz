@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from "react";
 import {
-  Checkbox,
   DefaultButton,
   Spinner,
   IChoiceGroupOption,
   ChoiceGroup,
 } from "@fluentui/react";
 import axios from "axios";
-import Result from "../Result/Result";
-
-const Question = ({ questionsId, index }) => {
+import { useLocation, useNavigate } from "react-router-dom";
+// const Question = ({ questionsId, index,score,maxScore })
+const Question = (props) => {
   const [question, setQuestion] = useState([]);
   const [options, setOptions] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(index);
+  const [currentIndex, setCurrentIndex] = useState(props.index);
   const [isLoading, setIsloading] = useState(true);
   const [score, setScore] = useState(0);
-  const [userResponse, setUserResponse] = useState();
+  const [userResponse, setUserResponse] = useState(null);
   const [isCorrected, setIsCorrected] = useState(false);
+
+  let navigate=useNavigate();
 
   useEffect(() => {
     async function fetchData() {
       setIsloading(true);
       const response = await axios.get(
-        `http://localhost:3000/question/${questionsId[currentIndex].id}`
+        `http://localhost:3000/question/${props.questionsId[currentIndex].id}`
       );
 
       const options: IChoiceGroupOption[] = response.data.answers.map(
@@ -38,11 +39,15 @@ const Question = ({ questionsId, index }) => {
   }, [currentIndex]);
 
   const onClick = () => {
-    if (currentIndex === questionsId.lenght - 1) {
+     if (currentIndex === props.questionsId.length - 1) {
       // on arrive sur la page résultat
+      navigate("/score", {state : {score:score, maxScore:props.questionsId.length}});
+     
     } else {
-      setCurrentIndex(currentIndex + 1);
       setIsCorrected(false);
+      setUserResponse(null);
+      setCurrentIndex(currentIndex + 1);
+
     }
   };
 
@@ -52,18 +57,22 @@ const Question = ({ questionsId, index }) => {
 
   const onCorrectionRequest = () => {
     setIsCorrected(true);
+   if (userResponse.key === question.question.goodResponseId){
+     setScore(score+1);
+   }
     const options: IChoiceGroupOption[] = question.answers.map((answer) => {
       return {
         key: answer.id,
         text: answer.name,
         styles:
           answer.id === question.question.goodResponseId
-            ? { root: { border: "1px solid green" } }
+            ? { root: { color: "green", fontWeight:"bold" } }
             : null,
       };
     });
     setOptions(options);
   };
+
 
   return (
     <div className="question">
@@ -75,7 +84,7 @@ const Question = ({ questionsId, index }) => {
           <p>{question.question.description}</p>
           <ChoiceGroup options={options} onChange={onChange} />
 
-          {!isCorrected && (
+          {!isCorrected && userResponse !== null &&(
             <>
               <DefaultButton text="Correction" onClick={onCorrectionRequest} />
             </>
@@ -83,7 +92,7 @@ const Question = ({ questionsId, index }) => {
 
           {isCorrected && (
             <>
-              <DefaultButton text="Next" onClick={onClick} />
+              <DefaultButton text="Suivant" onClick={onClick} />
             </>
           )}
         </div>
