@@ -6,11 +6,11 @@ import axios from "axios";
 import Result from "../Result/Result";
 
 
-import "../../styles/reset.css";
-import "../App/App.css";
 import { initializeIcons } from "@fluentui/font-icons-mdl2";
 import { Spinner } from "@fluentui/react";
 
+import "../../styles/reset.css";
+import "../App/App.css";
 initializeIcons();
 
 function App() {
@@ -28,16 +28,19 @@ function App() {
   });
 
   return (
-    <>
+    <div className="app">
       {isLoading && <Spinner />}
       {!isLoading && (
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/questions" element={<Question questionsId={questions} index={0} />} />
-          <Route path="/score" element={<Result/>}/>
+          <Route
+            path="/questions"
+            element={<Question questionsId={questions} index={0} />}
+          />
+          <Route path="/score" element={<Result />} />
         </Routes>
       )}
-    </>
+    </div>
   );
 }
 

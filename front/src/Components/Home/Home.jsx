@@ -1,13 +1,15 @@
 import React from "react";
 import { DefaultButton } from "@fluentui/react/lib/Button";
 import { Link } from "react-router-dom";
+import '../Home/home.sass';
 
 const Home = () => {
   return (
-    <div>
-      <h1>Bienvenue sur votre quiz</h1>
+    <div className="home">
+      <h1 className="home-title">Bienvenue sur votre quiz</h1>
+      <p className="home-consigne">Initiez-vous aux bases de l'informatique</p>
       <Link to={`/questions`}>
-        <DefaultButton text="Start" />
+        <DefaultButton className="title-button" text="Start" />
       </Link>
     </div>
   );

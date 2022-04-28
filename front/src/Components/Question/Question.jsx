@@ -7,7 +7,10 @@ import {
 } from "@fluentui/react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// const Question = ({ questionsId, index,score,maxScore })
+
+import '../Question/question.sass'
+
+
 const Question = ({questionsId, index}) => {
   const [question, setQuestion] = useState([]);
   const [options, setOptions] = useState([]);
@@ -66,7 +69,7 @@ const Question = ({questionsId, index}) => {
         text: answer.name,
         styles:
           answer.id === question.question.goodResponseId
-            ? { root: { color: "green", fontWeight:"bold" } }
+            ? { root: { color: "#2e7e32", fontWeight:"bold" } }
             : null,
       };
     });
@@ -79,20 +82,21 @@ const Question = ({questionsId, index}) => {
       {isLoading && <Spinner />}
       {!isLoading && (
         <div className="question-loading">
-          <h3>Question {question.question.id}</h3>
+          <h3 className="question-title">Question {question.question.id}</h3>
 
-          <p>{question.question.description}</p>
-          <ChoiceGroup options={options} onChange={onChange} />
+          <p className="question-question" >{question.question.description}</p>
+          <span className="question-consigne">Une seule réponse possible</span>
+          <ChoiceGroup className="question-choice" options={options} onChange={onChange} />
 
           {!isCorrected && userResponse !== null &&(
             <>
-              <DefaultButton text="Correction" onClick={onCorrectionRequest} />
+              <DefaultButton className="question-button" text="Correction" onClick={onCorrectionRequest} />
             </>
           )}
 
           {isCorrected && (
             <>
-              <DefaultButton text="Suivant" onClick={onClick} />
+              <DefaultButton className="question-button" text="Suivant" onClick={onClick} />
             </>
           )}
         </div>
